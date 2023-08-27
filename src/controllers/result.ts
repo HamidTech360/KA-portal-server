@@ -5,31 +5,39 @@ import { Student } from "../models/students";
 
 export const uploadResult = expressAsyncHandler(
     async (req:Request, res:Response)=>{
-        const {scores, regNumber, session} = req.body
+        const {scores, registrationNumber, session} = req.body
         try{
-            const checkReg = await Student.findOne({regNumber})
+            const checkReg = await Student.findOne({registrationNumber})
+            
+            
+            
             if(!checkReg){
                 res.status(400).send({
-                    message:'Student with this regNumber does not exist'
+                    message:'Student with this registrationNumber does not exist'
                 })
                 return
             }
-            const findDuplicate = await Result.findOne({regNumber, session})
-           
             
+            
+            const findDuplicate = await Result.findOne({regNumber:registrationNumber, session})
+           
+            console.log(findDuplicate);
             if(findDuplicate){
                 res.status(400).send({
                     message:'Result for this session has already been uploaded for this student'
                 })
                 return
             }
+            
             const result = await Result.create({
-                regNumber,
+                regNumber:registrationNumber,
                 scores,
-                session
+                session,
+                studentId:checkReg._id,
+                level:checkReg.level
             })
 
-            const updateStudent = await Student.findOneAndUpdate({regNumber}, {
+            const updateStudent = await Student.findOneAndUpdate({registrationNumber}, {
                 $addToSet:{results:result._id}
             })
             res.json({
@@ -91,7 +99,7 @@ export const getSingleResult = expressAsyncHandler(
     async(req:Request, res:Response)=>{
         const id = req.params.id
         try{
-            const result = await Result.findById(id)
+            const result = await Result.findById(id).populate('studentId')
 
                 res.json({
                     message:'single result fetched',

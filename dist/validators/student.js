@@ -17,7 +17,8 @@ function createStudentValidator(student) {
         level: joi_browser_1.default.string().required(),
         parentName: joi_browser_1.default.string().required(),
         parentAddress: joi_browser_1.default.string().required(),
-        phoneNumber: joi_browser_1.default.string().required()
+        phoneNumber: joi_browser_1.default.string().required(),
+        registrationNumber: joi_browser_1.default.string().required()
     };
     return joi_browser_1.default.validate(student, schema);
 }

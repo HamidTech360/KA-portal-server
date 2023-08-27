@@ -12,7 +12,8 @@ export function createStudentValidator (student:any){
         level:joi.string().required(),
         parentName:joi.string().required(),
         parentAddress:joi.string().required(),
-        phoneNumber:joi.string().required()
+        phoneNumber:joi.string().required(),
+        registrationNumber:joi.string().required()
     }
 
     return joi.validate(student, schema)

@@ -66,6 +66,10 @@ const studentSchema = new mongoose_1.default.Schema({
         type: String,
         required: true
     },
+    registrationNumber: {
+        type: String,
+        required: true
+    },
     parentName: {
         type: String,
         required: true

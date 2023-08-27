@@ -17,7 +17,8 @@ export const createStudentRecord = expressAsyncHandler(
                 level,
                 parentName,
                 parentAddress,
-                phoneNumber
+                phoneNumber,
+                registrationNumber
             } = req.body
 
             const {error} = createStudentValidator(req.body)
@@ -48,7 +49,8 @@ export const createStudentRecord = expressAsyncHandler(
                 regNumber:formatDigit(count+1),
                 parentName,
                 parentAddress,
-                phoneNumber
+                phoneNumber,
+                registrationNumber
             }) 
 
             res.json({
@@ -115,7 +117,8 @@ export const updateStudentRecord = expressAsyncHandler(
             level,
             parentName,
             parentAddress,
-            phoneNumber
+            phoneNumber,
+            registrationNumber
         } = req.body
         try{
             const student = await Student.findByIdAndUpdate(id,{
@@ -130,6 +133,7 @@ export const updateStudentRecord = expressAsyncHandler(
                 ...(parentName && {parentName}),
                 ...(parentAddress && {parentAddress}),
                 ...(phoneNumber && {phoneNumber}),
+                ...(registrationNumber && {registrationNumber}),
             } , {new:true})
             res.json({
                 message:'Student record updated successfully',

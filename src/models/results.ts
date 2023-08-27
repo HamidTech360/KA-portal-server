@@ -21,6 +21,15 @@ const resultSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    studentId:{
+        type:Schema.Types.ObjectId,
+        required:true,
+        ref:'Student'
+    },
+    level:{
+        type:String,
+        required:true
+    },
     scores:{
         type:[[String]],
         required:true

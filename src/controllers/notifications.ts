@@ -48,7 +48,7 @@ export const EditNotification = expressAsyncHandler(
 export const getAllNotifications = expressAsyncHandler(
     async(req:Request, res:Response)=>{
         try{
-            const notifications = await Notification.find()
+            const notifications = await Notification.find().sort({createdAt:-1})
             res.send({
                 message:'notification fetched',
                 notifications

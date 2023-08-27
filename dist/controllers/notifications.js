@@ -51,7 +51,7 @@ exports.EditNotification = (0, express_async_handler_1.default)((req, res) => __
 }));
 exports.getAllNotifications = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const notifications = yield notification_1.Notification.find();
+        const notifications = yield notification_1.Notification.find().sort({ createdAt: -1 });
         res.send({
             message: 'notification fetched',
             notifications

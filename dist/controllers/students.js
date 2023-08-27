@@ -18,7 +18,7 @@ const express_async_handler_1 = __importDefault(require("express-async-handler")
 const student_1 = require("../validators/student");
 exports.createStudentRecord = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { firstName, lastName, gender, dob, admissionDate, address, state, level, parentName, parentAddress, phoneNumber } = req.body;
+        const { firstName, lastName, gender, dob, admissionDate, address, state, level, parentName, parentAddress, phoneNumber, registrationNumber } = req.body;
         const { error } = (0, student_1.createStudentValidator)(req.body);
         if (error) {
             res.status(400).send(error.details[0].message);
@@ -43,7 +43,8 @@ exports.createStudentRecord = (0, express_async_handler_1.default)((req, res) =>
             regNumber: formatDigit(count + 1),
             parentName,
             parentAddress,
-            phoneNumber
+            phoneNumber,
+            registrationNumber
         });
         res.json({
             message: 'New student created',
@@ -91,9 +92,9 @@ exports.getSingleStudent = (0, express_async_handler_1.default)((req, res) => __
 }));
 exports.updateStudentRecord = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
-    const { firstName, lastName, gender, dob, admissionDate, address, state, level, parentName, parentAddress, phoneNumber } = req.body;
+    const { firstName, lastName, gender, dob, admissionDate, address, state, level, parentName, parentAddress, phoneNumber, registrationNumber } = req.body;
     try {
-        const student = yield students_1.Student.findByIdAndUpdate(id, Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, (firstName && { firstName })), (lastName && { lastName })), (gender && { gender })), (dob && { dob })), (admissionDate && { admissionDate })), (address && { address })), (state && { state })), (level && { level })), (parentName && { parentName })), (parentAddress && { parentAddress })), (phoneNumber && { phoneNumber })), { new: true });
+        const student = yield students_1.Student.findByIdAndUpdate(id, Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, (firstName && { firstName })), (lastName && { lastName })), (gender && { gender })), (dob && { dob })), (admissionDate && { admissionDate })), (address && { address })), (state && { state })), (level && { level })), (parentName && { parentName })), (parentAddress && { parentAddress })), (phoneNumber && { phoneNumber })), (registrationNumber && { registrationNumber })), { new: true });
         res.json({
             message: 'Student record updated successfully',
             student
